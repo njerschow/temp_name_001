@@ -1,42 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Web3Zapier
 
-## Getting Started
+Pseudo use-cases:
 
-First, run the development server:
+Build routers that will run towards bridges/from bridges
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Events (triggers)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Received ERC20
+Received NFT
+Received native token
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Actions
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+call methods
+send money
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+# Cosmos Smart Contract Explorer Proposal
+Name: ? (blockhopper, chainhopper, chainex, explorer, cosmexplorer, cosmhopper, )
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Phase 1
+* Osmosis chain support
+* Cosmos (maybe neutron) chain support
+* ?? chain support
+* Compile proto library of chain
+* Allow for github repo linking to add your smart contract (how to do for private repos?)
+* Compile of Instantiate, ExecuteMsg, and QueryMsg types to protos -> to jsonschema for UI
+* UI search bar for arbitrary contract addresses 
+* Seed explorer with already-deployed & open source contracts
+* send queries to RPC node & display results
+* send arbitrary transactions through keplr
+* testnet chain support?
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Phase 2
+* continuous deployment (update proto defs daily from github)
+* code generation 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Contract learnings
-
-### Better way to get tokenId after minting
-
-No need to emit an event for "Minted". This is a waste of gas. Can instead view the response of the mintTxn and grab the mintTxn response object, look at the 0th item in the events array (this is the Transfer event that happens automatically), grab the args obj, look at the 2 index (it should be a BigNumber), and convert that to a number and that's your tokenId.
-
-See the `getTokenIdFromMintResponse` function in `src/utils/contractUtils.ts`
+## Phase 3
+* in-browser CosmWasm Repl for easy testing
+* 

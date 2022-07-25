@@ -33,6 +33,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input::placeholder {
+  color: #fff !important;
+}
+
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
@@ -251,6 +255,7 @@ div>.input {
   opacity: 0.85;
   border-radius: 8px;
   padding: 4px 8px;
+  color: #FFF !important;
 }
 
 div>.input.dark {

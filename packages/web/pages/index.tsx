@@ -38,11 +38,7 @@ function Home () {
           </a>
         </p>
         <p>
-          <a
-            href='https://twitter.com/fraximalists'
-            rel='noreferrer'
-            target='_blank'
-          >
+          <a href='metamask://0x13adc' rel='noreferrer' target='_blank'>
             Twitter
           </a>
         </p>
