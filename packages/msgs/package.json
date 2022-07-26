@@ -1,11 +1,9 @@
 {
   "name": "cosmwander-msgs",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "typings": "./lib/index.d.ts",
+  "main": "./lib/cjs/src/index.js",
+  "module": "./lib/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf lib",
