@@ -23,9 +23,11 @@ const AppNav = ({
 
   useEffect(() => {
     try {
-      gradient2 = new Gradient()
-      // @ts-ignore
-      gradient2.initGradient('#gradient-canvas-2')
+      setTimeout(() => {
+        gradient2 = new Gradient()
+        // @ts-ignore
+        gradient2.initGradient('#gradient-canvas-2')
+      }, 30)
     } catch {}
   })
 
