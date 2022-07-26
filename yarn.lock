@@ -4460,9 +4460,9 @@
     "path-type" "^4.0.0"
     "yaml" "^1.7.2"
 
-"cosmwander-msgs@^1.0.0", "cosmwander-msgs@file:/Users/nikitajerschow/Documents/PassiveIncome/web3zapier/packages/msgs":
+"cosmwander-msgs@^1.0.9", "cosmwander-msgs@file:/Users/nikitajerschow/Documents/PassiveIncome/web3zapier/packages/msgs":
   "resolved" "file:packages/msgs"
-  "version" "1.0.9"
+  "version" "1.0.10"
 
 "cosmwander-web@file:/Users/nikitajerschow/Documents/PassiveIncome/web3zapier/packages/web":
   "resolved" "file:packages/web"
@@ -4481,7 +4481,7 @@
     "aos" "^2.3.4"
     "axios" "^0.26.1"
     "canvas" "2.6.1"
-    "cosmwander-msgs" "^1.0.0"
+    "cosmwander-msgs" "^1.0.9"
     "create-emotion-server" "^10.0.27"
     "ethers" "^5.5.4"
     "firebase-admin" "^10.0.2"

@@ -65,12 +65,5 @@
     "incremental": true
   },
   "exclude": ["webworkers", "dist"],
-  "include": [
-    "next-env.d.ts",
-    "candid.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/components/messages/GenericMessage.js",
-    "src/components/ExplorerRow.js"
-  ]
+  "include": ["next-env.d.ts", "candid.d.ts", "**/*.ts", "**/*.tsx"]
 }
