@@ -1,5 +1,5 @@
 {
-  "name": "@fraximalists/web",
+  "name": "cosmwander-web",
   "version": "0.2.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
     "aos": "^2.3.4",
     "axios": "^0.26.1",
     "canvas": "2.6.1",
+    "cosmwander-msgs": "^1.0.0",
     "create-emotion-server": "^10.0.27",
     "ethers": "^5.5.4",
     "firebase-admin": "^10.0.2",
