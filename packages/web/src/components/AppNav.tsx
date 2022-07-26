@@ -23,13 +23,11 @@ const AppNav = ({
 
   useEffect(() => {
     try {
-      setTimeout(() => {
-        gradient2 = new Gradient()
-        // @ts-ignore
-        gradient2.initGradient('#gradient-canvas-2')
-      }, 30)
+      gradient2 = new Gradient()
+      // @ts-ignore
+      gradient2.initGradient('#gradient-canvas-2')
     } catch {}
-  })
+  }, [])
 
   return (
     <AppBar color='transparent' elevation={0} position='static'>
