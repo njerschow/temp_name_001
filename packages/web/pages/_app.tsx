@@ -34,21 +34,21 @@ function MyApp ({
 
   return (
     <CacheProvider value={cache}>
-        <Head>
-          <meta name='twitter:card' content='summary_large_image' />
-          <meta name='twitter:site' content={config.TWITTER_URL} />
-          <meta name='twitter:title' content={config.META.TITLE} />
-          <meta name='twitter:description' content={config.META.DESCRIPTION} />
-          <meta name='twitter:image' content={config.META.IMAGE} />
-          <meta property='og:image' content={config.META.IMAGE} />
-          <meta property='og:title' content={config.META.TITLE} />
-          <meta property='og:description' content={config.META.DESCRIPTION} />
-          <meta property='og:url' content={config.COMPANY_URL} />
-        </Head>
-        <ThemeProvider theme={theme}>
-          {/* <CssBaseline /> */}
-          <Component {...pageProps} />
-        </ThemeProvider>
+      <Head>
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:site' content={config.TWITTER_URL} />
+        <meta name='twitter:title' content={config.META.TITLE} />
+        <meta name='twitter:description' content={config.META.DESCRIPTION} />
+        <meta name='twitter:image' content={config.META.IMAGE} />
+        <meta property='og:image' content={config.META.IMAGE} />
+        <meta property='og:title' content={config.META.TITLE} />
+        <meta property='og:description' content={config.META.DESCRIPTION} />
+        <meta property='og:url' content={config.COMPANY_URL} />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* <CssBaseline /> */}
+        <Component {...pageProps} />
+      </ThemeProvider>
     </CacheProvider>
   )
 }

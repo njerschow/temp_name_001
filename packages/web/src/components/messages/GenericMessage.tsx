@@ -314,30 +314,41 @@ const GenericMessage = ({
 
   return (
     <div className={classes.root}>
-      <Typography variant='h6' className='main-text'>
-        {schemaName}
-      </Typography>
-      {msgSchema.description && (
-        <Typography
-          variant='body1'
-          className='detail-text'
-          style={{ fontSize: 14, opacity: 0.6 }}
-        >
-          {msgSchema.description}
+      <div className='paragraph'>
+        <Typography variant='h6' className='main-text'>
+          {schemaName}
         </Typography>
-      )}
-      {renderPropertyEditor(msgSchema, '', schemaName)}
-      <Button onClick={sendMessage} className='action-button small'>
+        {msgSchema.description && (
+          <Typography
+            variant='body1'
+            className='detail-text'
+            style={{ fontSize: 14, opacity: 0.6 }}
+          >
+            {msgSchema.description}
+          </Typography>
+        )}
+        {renderPropertyEditor(msgSchema, '', schemaName)}
+      </div>
+      <Button
+        onClick={sendMessage}
+        className='action-button small paragraph-important'
+      >
         Send Request
       </Button>
       {!!response && typeof document !== 'undefined' && (
-        <DynamicReactJson src={response} theme='shapeshifter' collapsed={1} />
+        <div>
+          <Typography variant='body2' className='main-text paragraph-important'>
+            Response:
+          </Typography>
+          <DynamicReactJson src={response} theme='summerfruit' collapsed={1} />
+        </div>
       )}
       {error && (
         <Typography variant='body1' className='error-text'>
           {error}
         </Typography>
       )}
+      {/* <pre>{JSON.stringify(msgSchema, null, 2)}</pre> */}
     </div>
   )
 }

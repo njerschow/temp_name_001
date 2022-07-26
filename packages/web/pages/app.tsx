@@ -11,16 +11,16 @@ function Home () {
       {/*  Page content */}
       <main
         className='flex-grow'
-        style={{
-          background: 'radial-gradient(#0089, transparent);',
-          marginBottom: '6rem'
-        }}
+        // style={{
+        //   background: 'radial-gradient(#0089, transparent);',
+        //   marginBottom: '6rem'
+        // }}
       >
         {/*  Page sections */}
         <App />
       </main>
       {/*  Site footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

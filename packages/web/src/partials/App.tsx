@@ -1,13 +1,31 @@
-import { Button, Container, Grid, Typography } from '@material-ui/core'
-import { ArrowRightAlt } from '@material-ui/icons'
+import {
+  Button,
+  Container,
+  Grid,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography
+} from '@material-ui/core'
+import {
+  ArrowRight,
+  ArrowRightAlt,
+  KeyboardArrowRight
+} from '@material-ui/icons'
 import CheckIcon from '@material-ui/icons/Check'
 import { makeStyles } from '@material-ui/styles'
-import { MouseEvent, useEffect } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import Nav from '../components/Nav'
 import { Gradient } from '../utils/gradient'
 import msgs from 'cosmhop-msgs'
 import GenericMessage from '../components/messages/GenericMessage'
+import config from '../../config'
+import AppNav from '../components/AppNav'
+import { DarkSelect } from '../components/atoms'
+import ExplorerRow from '../components/ExplorerRow'
+
+const DEFAULT_SIDEBAR_WIDTH = 400
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,41 +75,129 @@ const useStyles = makeStyles(theme => ({
     width: 16
   },
   content: {
-    paddingTop: '7rem'
+    minHeight: 'calc(100vh - 66px)',
+    width: '100vw',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+    borderTop: '1px solid ' + config.PALETTE.BORDER_COLOR
+  },
+  sidebar: {
+    // flexBasis: DEFAULT_SIDEBAR_WIDTH,
+    width: DEFAULT_SIDEBAR_WIDTH,
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'stretch',
+    borderRight: '1px solid ' + config.PALETTE.BORDER_COLOR
+  },
+  main: {
+    flexBasis: '100%',
+    width: 'auto',
+    display: 'flex',
+    flexGrow: 1,
+    alignItems: 'flex-start'
+  },
+  selectChainContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '12px 8px',
+    borderBottom: '1px solid ' + config.PALETTE.BORDER_COLOR
+  },
+  explorer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'stretch'
   }
 }))
 
 const App = () => {
   const classes = useStyles()
 
+  const [currentChain, setCurrentChain] = useState('osmosis')
+  const [selectedSchemaName, setSelectedSchemaName] = useState('')
+  const [selectedSchema, setSelectedSchema] = useState(null)
+
+  function switchChain (event: SelectChangeEvent<unknown>) {
+    setCurrentChain(event.target.value as string)
+  }
+
+  function handleExplorerSelect (path: string) {
+    console.log(path)
+    const modules = msgs.schema[currentChain]
+    const parts = path.split('.')
+    let message = modules
+    for (let part of parts) {
+      message = message[part]
+    }
+    setSelectedSchemaName(parts[parts.length - 1])
+    setSelectedSchema(message)
+  }
+
+  function getChainModules (): string[] {
+    return currentChain ? Object.keys(msgs.schema[currentChain]) : []
+  }
+
+  const chainOpts = Object.keys(msgs.schema)
+  const moduleOpts = getChainModules()
+
   return (
     <div className={classes.root}>
-      <Nav />
-      <Container maxWidth='lg' className={classes.content}>
-        <Grid container spacing={3} alignItems='center'>
-          {Object.keys(msgs.schema.osmosis.gamm.v1beta1)
-            .filter(key => key.includes('Query') && key.includes('Request'))
-            .map(key => {
+      <AppNav />
+      <div className={classes.content}>
+        <div className={classes.sidebar}>
+          <div className={classes.selectChainContainer}>
+            {/* <Typography variant='body1' className='detail-text'>
+              Chain:
+            </Typography> */}
+            <DarkSelect
+              value={currentChain}
+              onChange={switchChain}
+              placeholder='Select Chain'
+              size='small'
+              label='Chain'
+            >
+              {chainOpts.map(chain => {
+                return (
+                  <MenuItem key={chain} value={chain}>
+                    {chain}
+                  </MenuItem>
+                )
+              })}
+            </DarkSelect>
+          </div>
+          <div className={classes.explorer}>
+            {moduleOpts.map(module => {
               return (
-                <Grid item xs={12} key={key}>
-                  <GenericMessage
-                    schemaName={key}
-                    msgSchema={msgs.schema.osmosis.gamm.v1beta1[key]}
-                  />
-                </Grid>
+                <ExplorerRow
+                  isRoot
+                  key={module}
+                  module={module}
+                  path={module}
+                  moduleOpts={msgs.schema[currentChain][module]}
+                  onClick={handleExplorerSelect}
+                />
               )
+              // return   <ExplorerRow module={module}>
             })}
-          {/* <Grid item xs={12}>
-            <GenericMessage
-              schemaName={'MsgSwapExactAmountIn'}
-              msgSchema={msgs.schema.osmosis.gamm.v1beta1.MsgSwapExactAmountIn}
-            />
-          </Grid> */}
-          {/* <Grid item xs={12}>
-            <pre>{JSON.stringify(msgs, null, 2)}</pre>
-          </Grid> */}
-        </Grid>
-      </Container>
+          </div>
+        </div>
+        <div className={classes.main}>
+          <Grid container spacing={3} alignItems='center'>
+            {selectedSchema && (
+              <Grid item xs={12} key={selectedSchemaName}>
+                <div style={{ padding: 16 }}>
+                  <GenericMessage
+                    schemaName={selectedSchemaName}
+                    msgSchema={selectedSchema}
+                  />
+                </div>
+              </Grid>
+            )}
+          </Grid>
+        </div>
+      </div>
     </div>
   )
 }

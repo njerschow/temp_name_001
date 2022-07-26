@@ -179,6 +179,10 @@ button.action-button.small {
   margin-bottom: 12px;
 }
 
+.paragraph-important {
+  margin-bottom: 12px !important;
+}
+
 .defi-backdrop {
   position: absolute;
   width: 100%;
@@ -220,7 +224,7 @@ button.action-button.small {
 }
 
 .MuiOutlinedInput-root>fieldset {
-  border-color: #212838;
+  border-color: #313848;
   border-radius: 8px;
 }
 
