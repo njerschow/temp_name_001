@@ -62,6 +62,14 @@ button {
   font-size: 14px;
 }
 
+.error-text {
+  font-family: 'Quicksand' !important;
+  font-weight: 600 !important;
+  opacity: 85%;
+  font-size: 14px;
+  color: #ff0000;
+}
+
 .main-text-inverted {
   font-family: 'Plus Jakarta Text' !important;
   font-weight: 800 !important;

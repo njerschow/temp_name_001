@@ -70,7 +70,7 @@ const App = () => {
       <Container maxWidth='lg' className={classes.content}>
         <Grid container spacing={3} alignItems='center'>
           {Object.keys(msgs.schema.osmosis.gamm.v1beta1)
-            .filter(key => key.includes('Query'))
+            .filter(key => key.includes('Query') && key.includes('Request'))
             .map(key => {
               return (
                 <Grid item xs={12} key={key}>

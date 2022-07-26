@@ -31,6 +31,7 @@
     "react-autosave": "^0.3.1",
     "react-dom": "17.0.2",
     "react-image-crop": "^9.1.1",
+    "react-json-view": "^1.21.3",
     "react-parallax-tilt": "^1.6.4",
     "react-spinners": "^0.11.0",
     "tiny-async-pool": "^1.2.0",

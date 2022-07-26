@@ -1,7 +1,50 @@
-import { TextField, Typography } from '@material-ui/core'
+import { Button, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import axios from 'axios'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { HttpJsonSchemaOrgDraft04Schema } from '../../types/HttpJsonSchemaOrgDraft04Schema'
+import swag from './tmpswagger.json'
+
+const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false })
+
+const mapping = {
+  QueryNumPoolsRequest: '/osmosis/gamm/v1beta1/num_pools',
+  QueryPoolParamsRequest: '/osmosis/gamm/v1beta1/pools/{pool_id}/params',
+  QueryPoolRequest: '/osmosis/gamm/v1beta1/pools/{pool_id}',
+  QueryPoolsRequest: '/osmosis/gamm/v1beta1/pools',
+  QuerySpotPriceRequest: '/osmosis/gamm/v1beta1/pools/{pool_id}/prices',
+  QuerySwapExactAmountInRequest:
+    '/osmosis/gamm/v1beta1/{pool_id}/estimate/swap_exact_amount_in',
+  QuerySwapExactAmountOutRequest:
+    '/osmosis/gamm/v1beta1/{pool_id}/estimate/swap_exact_amount_out',
+  QueryTotalLiquidityRequest: '/osmosis/gamm/v1beta1/total_liquidity',
+  QueryTotalPoolLiquidityRequest:
+    '/osmosis/gamm/v1beta1/pools/{pool_id}/total_pool_liquidity',
+  QueryTotalSharesRequest: '/osmosis/gamm/v1beta1/pools/{pool_id}/total_shares'
+}
+
+async function sendRequest (schemaName: string, flattenedMessage: any) {
+  const providerURL = 'https://lcd-osmosis.whispernode.com'
+  let path = mapping[schemaName]
+  const query = {}
+  const requestDef = swag.paths[path]
+  if (requestDef.get.parameters) {
+    for (let param of requestDef.get.parameters) {
+      if (param.in === 'path') {
+        path = path.replace(`{${param.name}}`, flattenedMessage[param.name])
+      } else if (param.in === 'query') {
+        query[param.name] = flattenedMessage[param.name]
+      }
+    }
+  }
+  console.log(query)
+  const response = await axios.get(providerURL + path, {
+    params: query
+  })
+  console.log(response.data)
+  return response.data
+}
 
 const useStyles = makeStyles({
   root: {},
@@ -41,13 +84,10 @@ function constructStateFromSchema (
 
   switch (schema.type) {
     case 'string':
-      return ''
     case 'number':
-      return 0
     case 'integer':
-      return 0
     case 'boolean':
-      return true
+      return null
     case 'object':
       return constructStateFromObjectSchema(rootSchema, schema, propKey)
     case 'array':
@@ -69,6 +109,51 @@ const GenericMessage = ({
   const [message, setMessage] = useState({
     [schemaName]: constructStateFromSchema(msgSchema, msgSchema)
   })
+  const [response, setResponse] = useState()
+  const [error, setError] = useState()
+  console.log({ message, flat: flattenObject(message) })
+
+  // DELETABLE - REFACTOR asap
+  function flattenObject (obj: any) {
+    if (!obj) return
+    if (obj.hasOwnProperty(schemaName)) {
+      obj = obj[schemaName]
+    }
+    const result: any = {}
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key]
+        if (typeof value === 'object') {
+          const flat = flattenObject(value)
+          for (const k in flat) {
+            if (flat.hasOwnProperty(k)) {
+              result[`${key}.${k}`] = flat[k]
+            }
+          }
+        } else {
+          result[key] = value
+        }
+      }
+    }
+    return result
+  }
+
+  async function sendMessage () {
+    setResponse(null)
+    setError(null)
+    try {
+      const res = await sendRequest(schemaName, flattenObject(message))
+      setResponse(res)
+    } catch (e) {
+      setError(
+        e.response
+          ? e.response.data?.message
+            ? e.response.data.message
+            : JSON.stringify(e.response.data, null, 2)
+          : e.message
+      )
+    }
+  }
 
   // yucky function to read values
   function getValueFromPath (path: string) {
@@ -181,7 +266,7 @@ const GenericMessage = ({
           }
         }}
         placeholder={('type: ' + definition.type) as string}
-        value={getValueFromPath(safeConcatPaths(propPath, propKey))}
+        value={getValueFromPath(safeConcatPaths(propPath, propKey)) || ''}
         onChange={e =>
           setValueAtPath(
             safeConcatPaths(propPath, propKey),
@@ -242,6 +327,17 @@ const GenericMessage = ({
         </Typography>
       )}
       {renderPropertyEditor(msgSchema, '', schemaName)}
+      <Button onClick={sendMessage} className='action-button small'>
+        Send Request
+      </Button>
+      {!!response && typeof document !== 'undefined' && (
+        <DynamicReactJson src={response} theme='shapeshifter' collapsed={1} />
+      )}
+      {error && (
+        <Typography variant='body1' className='error-text'>
+          {error}
+        </Typography>
+      )}
     </div>
   )
 }

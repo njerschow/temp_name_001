@@ -1,4 +1,4 @@
-# Web3Zapier
+<!-- # Web3Zapier
 
 Pseudo use-cases:
 
@@ -13,7 +13,7 @@ Received native token
 ## Actions
 
 call methods
-send money
+send money -->
 
 
 # Cosmos Smart Contract Explorer Proposal
