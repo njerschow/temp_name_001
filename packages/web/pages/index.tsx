@@ -8,6 +8,9 @@ export function getServerSideProps (context) {
     Location: '/app'
   })
   context.res.end()
+  return {
+    props: {}
+  }
 }
 
 function Home () {
