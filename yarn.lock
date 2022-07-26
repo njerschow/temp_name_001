@@ -4462,7 +4462,7 @@
 
 "cosmwander-msgs@^1.0.0", "cosmwander-msgs@file:/Users/nikitajerschow/Documents/PassiveIncome/web3zapier/packages/msgs":
   "resolved" "file:packages/msgs"
-  "version" "1.0.4"
+  "version" "1.0.5"
 
 "cosmwander-web@file:/Users/nikitajerschow/Documents/PassiveIncome/web3zapier/packages/web":
   "resolved" "file:packages/web"
