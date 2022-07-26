@@ -1,29 +1,12 @@
-import {
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography
-} from '@material-ui/core'
-import {
-  ArrowRight,
-  ArrowRightAlt,
-  KeyboardArrowRight
-} from '@material-ui/icons'
-import CheckIcon from '@material-ui/icons/Check'
+import { Grid, MenuItem, SelectChangeEvent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { MouseEvent, useEffect, useState } from 'react'
-import Tilt from 'react-parallax-tilt'
-import Nav from '../components/Nav'
-import { Gradient } from '../utils/gradient'
 import msgs from 'cosmwander-msgs'
-import GenericMessage from '../components/messages/GenericMessage'
+import { useState } from 'react'
 import config from '../../config'
 import AppNav from '../components/AppNav'
 import { DarkSelect } from '../components/atoms'
 import ExplorerRow from '../components/ExplorerRow'
+import GenericMessage from '../components/messages/GenericMessage'
 
 const DEFAULT_SIDEBAR_WIDTH = 400
 
