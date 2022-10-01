@@ -48,7 +48,12 @@ const Nav = ({
 
   return (
     <AppBar color='transparent' elevation={0} position='static'>
-      <Toolbar className={classes.responsiveToolbar} style={{ width: '100%' }}>
+      <Toolbar
+        className={classes.responsiveToolbar}
+        style={{
+          width: '100%'
+        }}
+      >
         <Grid container alignItems='center' alignContent='center'>
           <Grid item xs={12}>
             <Grid

@@ -39,7 +39,7 @@ export interface HttpJsonSchemaOrgDraft04Schema {
   uniqueItems?: boolean
   maxProperties?: PositiveInteger
   minProperties?: PositiveIntegerDefault0
-  required?: StringArray
+  required?: string[]
   additionalProperties?: boolean | HttpJsonSchemaOrgDraft04Schema
   definitions?: {
     [k: string]: HttpJsonSchemaOrgDraft04Schema

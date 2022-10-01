@@ -100,6 +100,7 @@ const App = () => {
 
   const [currentChain, setCurrentChain] = useState('osmosis')
   const [selectedSchemaName, setSelectedSchemaName] = useState('')
+  const [selectedSchemaPath, setSelectedSchemaPath] = useState('')
   const [selectedSchema, setSelectedSchema] = useState(null)
 
   function switchChain (event: SelectChangeEvent<unknown>) {
@@ -116,6 +117,7 @@ const App = () => {
     }
     setSelectedSchemaName(parts[parts.length - 1])
     setSelectedSchema(message)
+    setSelectedSchemaPath(path)
   }
 
   function getChainModules (): string[] {
@@ -173,6 +175,7 @@ const App = () => {
                 <div style={{ padding: 16 }}>
                   <GenericMessage
                     schemaName={selectedSchemaName}
+                    schemaPath={selectedSchemaPath}
                     msgSchema={selectedSchema}
                   />
                 </div>

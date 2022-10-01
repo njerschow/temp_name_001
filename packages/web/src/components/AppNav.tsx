@@ -1,10 +1,18 @@
 import React, { Component, MouseEventHandler, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { AppBar, Button, Grid, Toolbar, Typography } from '@material-ui/core'
+import {
+  AppBar,
+  Button,
+  Grid,
+  TextField,
+  Toolbar,
+  Typography
+} from '@material-ui/core'
 import axios from 'axios'
 import { Gradient } from '../utils/gradient'
 import Image from 'next/image'
 import config from '../../config'
+import { Search } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   root: { height: 66 }
@@ -31,7 +39,13 @@ const AppNav = ({
 
   return (
     <AppBar color='transparent' elevation={0} position='static'>
-      <Toolbar style={{ width: '100%' }} disableGutters>
+      <Toolbar
+        style={{
+          width: '100%',
+          borderBottom: '1px solid ' + config.PALETTE.BORDER_COLOR
+        }}
+        disableGutters
+      >
         <Grid container alignItems='center' alignContent='center' spacing={0}>
           <Grid item xs={12}>
             <Grid
@@ -43,7 +57,8 @@ const AppNav = ({
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                flexWrap: 'nowrap'
+                flexWrap: 'nowrap',
+                paddingRight: 24
               }}
             >
               {/* {hovering ? ( */}
@@ -73,12 +88,55 @@ const AppNav = ({
                 style={{
                   fontWeight: 100,
                   marginLeft: 14,
+                  marginRight: 'auto',
                   fontFamily:
                     'Comfortaa, Quicksand, Arial, Helvetica, sans-serif'
                 }}
               >
                 {config.DISPLAY_COMPANY_NAME}
               </Typography>
+              <TextField
+                autoFocus
+                InputProps={{
+                  style: {
+                    padding: 0,
+                    color: '#222222',
+                    marginLeft: 'auto'
+                  },
+                  classes: {
+                    input: 'input',
+                    notchedOutline: 'notched-outline',
+                    focused: 'input-focused'
+                  },
+                  startAdornment: (
+                    <Search
+                      style={{
+                        color: '#858fa5',
+                        marginLeft: 8,
+                        width: 14,
+                        height: 14
+                      }}
+                    />
+                  ),
+                  endAdornment: (
+                    <Button
+                      className='action-button small'
+                      style={{
+                        padding: '2px 24px',
+                        // marginRight: 11,
+                        color: '#F5F7FF',
+                        fontSize: 12,
+                        borderRadius: 8
+                      }}
+                    >
+                      Search
+                    </Button>
+                  )
+                }}
+                placeholder={'Contract address, account, or codeid...'}
+                value={''}
+                onChange={() => {}}
+              />
             </Grid>
           </Grid>
         </Grid>

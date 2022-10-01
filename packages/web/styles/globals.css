@@ -62,6 +62,10 @@ button {
   font-size: 14px;
 }
 
+.bright {
+  opacity: 1
+}
+
 .error-text {
   font-family: 'Quicksand' !important;
   font-weight: 600 !important;
@@ -101,6 +105,10 @@ button.action-button.small {
   padding: 2px 12px;
   font-size: 16px;
   font-weight: 300;
+}
+
+button.action-button.squircle {
+  border-radius: 8px;
 }
 
 .action-button:hover {
@@ -164,6 +172,37 @@ button.action-button.small {
 
 .text-button:hover {
   background: #66666611
+}
+
+.toolbar {
+  display: flex;
+  background: #4e6c8721
+}
+
+button.toolbar-button {
+  background: transparent;
+  color: #ffffff88;
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+  transition: all 0.2s ease-out;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+button.toolbar-button:hover {
+  background: #50607055;
+}
+
+button.toolbar-button.disabled {
+  color: #ffffff33;
+  cursor: not-allowed;
+}
+
+button.toolbar-button.active {
+  background: #50607055;
 }
 
 .light-border {
@@ -254,7 +293,6 @@ div>.notched-outline {
 
 div>.notched-outline:hover {
   border-color: #313948 !important;
-  border-radius: 8px;
 }
 
 div>.input-focused {
@@ -265,9 +303,29 @@ div>.input {
   font-family: 'Quicksand', Arial, Helvetica, sans-serif;
   font-size: 14px;
   opacity: 0.85;
-  border-radius: 8px;
+  border-radius: 25%;
   padding: 4px 8px;
   color: #FFF !important;
+}
+
+
+div>.input-huge {
+  font-family: 'Quicksand', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  opacity: 0.85;
+  border-radius: 16px;
+  padding: 12px 24px;
+  color: #FFF !important;
+}
+
+div>.notched-outline-huge {
+  border-color: #858fa5;
+  border-radius: 16px;
+  box-shadow: 0 0 25px #1f3c7e
+}
+
+div>.notched-outline-huge:hover {
+  border-color: #A5AfC5 !important;
 }
 
 div>.input.dark {
